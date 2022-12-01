@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  {% include 'django_quill/media.html' %}
+  <script src="https://unpkg.com/htmx.org@1.8.4"
+    integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="navigate">
+    <a class="web-title" href="{% url 'home' %}"><img class="web-title-img"
+        src="https://img.icons8.com/external-others-pike-picture/50/null/external-Converter-converter-others-pike-picture-3.png" />CodeHTML</a>
+    <nav class="navbar">
+      <a class="mr-5 nav-link">Home</a>
+      <a class="mr-5 nav-link">About</a>
+      <a class="mr-14 nav-link">Blog</a>
+      <a class="mr-5 hover:text-gray-900"><img class="w-8"
+          src="https://img.icons8.com/ios-filled/50/null/github.png" /></a>
+      <a class="mr-10 hover:text-gray-900"><img
+          src="https://img.icons8.com/external-inkubators-glyph-inkubators/25/null/external-night-mode-ecommerce-user-interface-inkubators-glyph-inkubators.png" /></a>
+      <button class="mr-20 hover:text-gray-900 bg-blue-600 py-1 px-3 font-serif text-white rounded-md">Contact me <span
+          class="my-2">&#8594;</span></button>
+    </nav>
+  </div>
+
+  <!-- index.html contents -->
+  <div class="container mx-auto">
+    <div class="title__head__wrapper">
+      <p class="head-alert"><img class="head-alert-img"
+          src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/null/external-working-work-from-home-konkapp-outline-color-konkapp.png" />
+        This Website is not Completed Yet</p>
+    </div>
+    <h1 class="title">
+      Code HTML</h1>
+    <p class="sub-title">Generate HTML Code with Text Only</p>
+    <form hx-post="{% url 'home' %}" hx-target="#htmled" id="editor">
+      <div class="editor__wrapper">
+        {% csrf_token %}
+        {{form.content}}
+      </div>
+      <div class="flex justify-center">
+        <input class="convert-btn" type="submit" value="Convert">
+      </div>
+    </form>
+
+    <div id="htmled">
+      {% if html %}
+      {% include 'paritals/converted.html' %}
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- index.html contents ends -->
+
+
+
+  <script>
+    textEditorContent = document.getElementById('quill-id_content');
+    textEditorContent.style.backgroundColor = '#f7dcbee6';
+    toolbarElement = document.getElementsByClassName('ql-toolbar')[0];
+    toolbarElement.style.textAlign = 'center';
+  </script>
+
+</body>
+
+</html>
